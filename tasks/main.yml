@@ -1,2 +1,34 @@
 ---
-# tasks file for ansible-role-linux-opendistro
+- name: Include OS-specific variables.
+  include_vars: '{{ ansible_os_family }}.yml'
+
+- name: Gather ElasticSearch node variables for cluster.
+  set_fact:
+    opendistro_servers: "\
+      {% set _opendistro_servers = [] %}\
+      {% for host in groups[group_names[0]] %}\
+        {% set _opendistro_cluster = opendistro_cluster | default('', true) %}\
+        {% if ( _opendistro_cluster == opendistro_cluster) %}\
+          {% if _opendistro_servers.append(hostvars[host]['ansible_host']) %}{% endif %}\
+        {% endif %}\
+      {% endfor %}\
+      {{ _opendistro_servers }}"
+  when: opendistro_servers is not defined or opendistro_servers | length < 1
+
+- name: Include tasks for specific OS.
+  include: '{{ ansible_os_family }}.yml'
+
+- name: Include firewall tasks.
+  include: 'firewall.yml'
+
+- name: Include configuration tasks.
+  include: 'configureation.yml'
+
+- name: Force the handler to run immediately.
+  meta: flush_handlers
+
+- name: Registered with HashiCorp Consul.
+  include: 'register.yml'
+  when:
+    - exporter_is_install | bool
+    - consul_public_register | bool

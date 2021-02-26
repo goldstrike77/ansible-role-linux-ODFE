@@ -1,0 +1,16 @@
+---
+opendistro_repo:
+  - name: 'opendistro'
+    desc: 'Release RPM artifacts of OpenDistroForElasticsearch'
+    url: 'http://d3g5vo6xdbdb9a.cloudfront.net/yum/noarch/'
+  - name: 'elasticsearch-oss-7.x'
+    desc: 'Elasticsearch repository for 7.x packages'
+    url: 'http://cache.omygods.com/elasticsearch-7.x/'
+
+opendistro_packages:
+  - 'opendistroforelasticsearch'
+  - 'opendistroforelasticsearch-kibana'
+
+opendistro_exporter_repo_name: 'prometheus'
+opendistro_exporter_repo_url: 'http://cache.omygods.com/prometheus-rpm/release/el/$releasever/$basearch/'
+opendistro_exporter_packages: 'elasticsearch_exporter'

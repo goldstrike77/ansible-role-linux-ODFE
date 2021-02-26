@@ -1,2 +1,20 @@
 ---
-# vars file for ansible-role-linux-opendistro
+opendistro_kernel_parameters:
+  - { variable: 'vm.max_map_count', value: '262144' }
+  - { variable: 'vm.swappiness', value: '10' }
+
+opendistro_conf:
+  - { src: 'elasticsearch.yml', dest: '/etc/elasticsearch/elasticsearch.yml', mode: '640', owner: 'elasticsearch' }
+  - { src: 'elasticsearch.service', dest: '/lib/systemd/system/elasticsearch.service', mode: '644', owner: 'root' }
+  - { src: 'elasticsearch', dest: '/etc/sysconfig/elasticsearch', mode: '644', owner: 'elasticsearch' }
+  - { src: 'jvm.options', dest: '/etc/elasticsearch/jvm.options', mode: '644', owner: 'elasticsearch' }
+
+opendistro_exporter_collector:
+#  - 'es.all'
+  - 'es.cluster_settings'
+  - 'es.indices'
+  - 'es.indices_settings'
+  - 'es.shards'
+  - 'es.snapshots'
+
+opendistro_tmpdir: '/var/run/elasticsearch'

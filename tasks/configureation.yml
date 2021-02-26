@@ -1,0 +1,49 @@
+---
+- name: Creating ElasticSearch storage folder.
+  file:
+    dest: '{{ opendistro_path }}/elasticsearch'
+    state: 'directory'
+    owner: 'elasticsearch'
+    group: 'elasticsearch'
+    mode: '0750'
+
+- name: Configure kernel parameters.
+  sysctl:
+    name: '{{ item.variable }}'
+    value: '{{ item.value }}'
+    state: 'present'
+    reload: 'yes'
+    sysctl_set: 'yes'
+    sysctl_file: '/etc/sysctl.d/20-sysctl.conf'
+  loop: '{{ opendistro_kernel_parameters }}'
+
+- name: Open Distro configuration file transfer.
+  template:
+    src: '{{ item.src }}.j2'
+    dest: '{{ item.dest }}'
+    owner: '{{ item.owner }}'
+    group: '{{ item.owner }}'
+    mode: '{{ item.mode }}'
+  loop: '{{ opendistro_conf }}'
+  notify:
+    - Restart ElasticSearch service.
+
+- name: Kibana configuration file transfer.
+  template:
+    src: 'kibana.yml.j2'
+    dest: '/etc/kibana/kibana.yml'
+    owner: 'kibana'
+    group: 'kibana'
+    mode: '640'
+  notify:
+    - Restart Kibana service.
+
+- name: ElasticSearch exporter configure file transfer.
+  template:
+    src: 'elasticsearch_exporter.default.j2'
+    dest: '/etc/default/elasticsearch_exporter'
+    owner: 'prometheus'
+    group: 'prometheus'
+    mode: '0640'
+  notify:
+    - Restart ElasticSearch exporter service.

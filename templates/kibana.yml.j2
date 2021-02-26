@@ -1,0 +1,30 @@
+server.port: {{ opendistro_port.kibana | default('5601') }}
+server.host: "{{ ansible_default_ipv4.address }}"
+server.name: "{{ ansible_hostname | lower }}"
+
+#server.ssl.enabled: true
+#server.ssl.certificate: /etc/kibana/ssl/server.crt
+#server.ssl.key: /etc/kibana/ssl/server.key
+#server.ssl.certificateAuthorities: /etc/kibana/ssl/ca-cert.pem
+#server.ssl.clientAuthentication: none
+#server.ssl.supportedProtocols: ["TLSv1.2"]
+
+logging.quiet: true
+logging.json: false
+
+elasticsearch.hosts: https://{{ ansible_default_ipv4.address }}:{{ opendistro_port.rest }}
+elasticsearch.ssl.verificationMode: none
+elasticsearch.username: kibanaserver
+elasticsearch.password: kibanaserver
+elasticsearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
+opendistro_security.multitenancy.enabled: true
+opendistro_security.multitenancy.tenants.preferred: ["Private", "Global"]
+opendistro_security.readonly_mode.roles: ["kibana_read_only"]
+
+# Use this setting if you are running kibana without https
+opendistro_security.cookie.secure: false
+
+newsfeed.enabled: false
+telemetry.optIn: false
+telemetry.enabled: false
+security.showInsecureClusterWarning: false

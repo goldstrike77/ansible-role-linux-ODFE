@@ -1,2 +1,21 @@
 ---
-# handlers file for ansible-role-linux-opendistro
+- name: Restart ElasticSearch service.
+  systemd:
+    name: 'elasticsearch.service'
+    enabled: 'yes'
+    state: 'restarted'
+    daemon_reload: 'yes'
+
+- name: Restart Kibana service.
+  systemd:
+    name: 'elasticsearch.service'
+    enabled: 'yes'
+    state: 'restarted'
+    daemon_reload: 'yes'
+
+- name: Restart ElasticSearch exporter service.
+  systemd:
+    name: 'elasticsearch_exporter.service'
+    enabled: 'yes'
+    state: 'restarted'
+    daemon_reload: 'yes'

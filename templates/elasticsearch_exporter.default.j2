@@ -1,0 +1,1 @@
+ELASTICSEARCH_EXPORTER_OPTS='--es.timeout=60s --es.uri=https://admin:{{ opendistro_admin_pass | urlencode }}@{{ ansible_default_ipv4.address }}:{{ opendistro_port.rest }} --web.listen-address {{ ansible_default_ipv4.address }}:{{ opendistro_port.exporter }} --{{ " --".join(vars["opendistro_exporter_collector"]) }} --es.ssl-skip-verify --log.level="warn" --log.format="logfmt"'

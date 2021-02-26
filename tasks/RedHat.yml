@@ -1,0 +1,53 @@
+---
+- name: Add Open Distro YUM repositories.
+  yum_repository:
+    name: '{{ item.name }}'
+    description: '{{ item.desc }}'
+    file: 'opendistro'
+    baseurl: '{{ item.url }}'
+    gpgcheck: 'no'
+    timeout: '60'
+  loop: '{{ opendistro_repo }}'
+
+- name: Install the Open Distro packages.
+  package:
+    name: '{{ opendistro_packages }}'
+    state: 'present'
+    validate_certs: 'no'
+    disable_gpg_check: 'yes'
+  register: yum_status
+  until: yum_status is succeeded
+  retries: 5
+  delay: 2
+  notify:
+    - Restart ElasticSearch service.
+
+- name: Add ElasticSearch exporter YUM repositories.
+  yum_repository:
+    name: '{{ opendistro_exporter_repo_name }}'
+    description: '{{ opendistro_exporter_repo_name }} YUM repository'
+    file: '{{ opendistro_exporter_repo_name }}'
+    baseurl: '{{ opendistro_exporter_repo_url }}'
+    gpgcheck: 'no'
+    timeout: '60'
+
+- name: Install the ElasticSearch exporter packages.
+  package:
+    name: '{{ opendistro_exporter_packages }}'
+    state: 'present'
+    validate_certs: 'no'
+    disable_gpg_check: 'yes'
+  register: yum_status
+  until: yum_status is succeeded
+  retries: 5
+  delay: 2
+
+- name: ElasticSearch exporter configure file transfer.
+  template:
+    src: 'elasticsearch_exporter.default.j2'
+    dest: '/etc/default/elasticsearch_exporter'
+    owner: 'prometheus'
+    group: 'prometheus'
+    mode: '0640'
+  notify:
+    - Restart ElasticSearch exporter service.
