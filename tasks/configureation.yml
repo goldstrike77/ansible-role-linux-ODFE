@@ -47,3 +47,13 @@
     mode: '0640'
   notify:
     - Restart ElasticSearch exporter service.
+
+- name: Open Distro internal users password outputs.
+  template:
+    src: 'opendistro_internal_users.passwd.j2'
+    dest: '/tmp/opendistro_internal_users.passwd'
+    mode: '0600'
+    owner: 'root'
+    group: 'root'
+  when: opendistro_servers[0] in ansible_default_ipv4.address
+  no_log: true

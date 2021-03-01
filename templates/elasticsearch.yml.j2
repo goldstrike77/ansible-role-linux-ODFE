@@ -6,7 +6,7 @@ bootstrap.memory_lock: {{ opendistro_memory_lock | bool | to_json }}
 network.host: {{ ansible_default_ipv4.address }}
 http.port: {{ opendistro_port.rest }}
 discovery.seed_hosts: ['{{ opendistro_servers | list | join(":" + opendistro_port.transport + "', '") }}:{{ opendistro_port.transport }}']
-cluster.initial_master_nodes: ['{{ opendistro_servers | list | join(":" + opendistro_port.transport + "', '") }}:{{ opendistro_port.transport }}']
+cluster.initial_master_nodes: {{ opendistro_servers[0] }}:{{ opendistro_port.transport }}
 cluster.max_shards_per_node: {{ opendistro_arg.cluster_max_shards_per_node | default('1000') }}
 action.destructive_requires_name: {{ opendistro_arg.action_destructive_requires_name | bool | to_json }}
 http.compression: {{ opendistro_arg.http_compression | bool | to_json }}
@@ -19,16 +19,10 @@ opendistro_security.ssl.transport.enforce_hostname_verification: false
 opendistro_security.ssl.transport.resolve_hostname: false
 opendistro_security.ssl.transport.enabled_protocols:
   - "TLSv1.2"
-opendistro_security.ssl.transport.enabled_ciphers:
-  - "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
-  - "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256"
 opendistro_security.ssl.http.enabled: true
 opendistro_security.ssl.http.clientauth_mode: NONE
 opendistro_security.ssl.http.enabled_protocols:
   - "TLSv1.2"
-opendistro_security.ssl.http.enabled_ciphers:
-  - "TLS_DHE_RSA_WITH_AES_256_CBC_SHA"
-  - "TLS_DHE_DSS_WITH_AES_128_CBC_SHA256"
 opendistro_security.ssl.http.pemcert_filepath: esnode.pem
 opendistro_security.ssl.http.pemkey_filepath: esnode-key.pem
 opendistro_security.ssl.http.pemtrustedcas_filepath: root-ca.pem

@@ -15,7 +15,7 @@ logging.json: false
 elasticsearch.hosts: https://{{ ansible_default_ipv4.address }}:{{ opendistro_port.rest }}
 elasticsearch.ssl.verificationMode: none
 elasticsearch.username: kibanaserver
-elasticsearch.password: kibanaserver
+elasticsearch.password: {{ opendistro_kibanaserver_pass }}
 elasticsearch.requestHeadersWhitelist: ["securitytenant","Authorization"]
 opendistro_security.multitenancy.enabled: true
 opendistro_security.multitenancy.tenants.preferred: ["Private", "Global"]

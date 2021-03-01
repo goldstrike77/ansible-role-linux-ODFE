@@ -4,7 +4,6 @@ opendistro_is_install: false # A boolean to determine whether or not to install 
 opendistro_version: '1.13.0' # Specify the Open Distro for ElasticSearch version.
 opendistro_path: '/data' # Specify the Open Distro for ElasticSearch storage directory.
 opendistro_cluster: 'siem' # Specify name for your ElasticSearch cluster.
-opendistro_admin_user: 'admin' # The default administrator username.
 opendistro_admin_pass: 'changeme' # The password for administrator.
 opendistro_heap_size: '3g' # Specify the maximum memory allocation pool for a Java virtual machine.
 opendistro_memory_lock: false # A boolean to determine whether or not lock the process address space into memory on startup.
