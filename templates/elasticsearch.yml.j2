@@ -3,18 +3,18 @@ node.name: {{ ansible_hostname | lower }}
 path.data: {{ opendistro_path }}/elasticsearch
 path.logs: /var/log/elasticsearch
 bootstrap.memory_lock: {{ opendistro_memory_lock | bool | to_json }}
-network.host: {{ ansible_default_ipv4.address }}
+network.host: 0.0.0.0
 http.port: {{ opendistro_port.rest }}
 discovery.seed_hosts: ['{{ opendistro_servers | list | join(":" + opendistro_port.transport + "', '") }}:{{ opendistro_port.transport }}']
-cluster.initial_master_nodes: {{ opendistro_servers[0] }}:{{ opendistro_port.transport }}
+cluster.initial_master_nodes: ['{{ opendistro_servers | list | join(":" + opendistro_port.transport + "', '") }}:{{ opendistro_port.transport }}']
 cluster.max_shards_per_node: {{ opendistro_arg.cluster_max_shards_per_node | default('1000') }}
 action.destructive_requires_name: {{ opendistro_arg.action_destructive_requires_name | bool | to_json }}
 http.compression: {{ opendistro_arg.http_compression | bool | to_json }}
 http.cors.enabled: {{ opendistro_arg.http_cors_enabled | bool | to_json }}
 http.cors.allow-methods: {{ opendistro_arg.http_cors_allow_methods }}
-opendistro_security.ssl.transport.pemcert_filepath: esnode.pem
-opendistro_security.ssl.transport.pemkey_filepath: esnode-key.pem
-opendistro_security.ssl.transport.pemtrustedcas_filepath: root-ca.pem
+opendistro_security.ssl.transport.pemcert_filepath: ssl/server.crt
+opendistro_security.ssl.transport.pemkey_filepath: ssl/server.key
+opendistro_security.ssl.transport.pemtrustedcas_filepath: ssl/ca-cert.pem
 opendistro_security.ssl.transport.enforce_hostname_verification: false
 opendistro_security.ssl.transport.resolve_hostname: false
 opendistro_security.ssl.transport.enabled_protocols:
@@ -23,9 +23,9 @@ opendistro_security.ssl.http.enabled: true
 opendistro_security.ssl.http.clientauth_mode: NONE
 opendistro_security.ssl.http.enabled_protocols:
   - "TLSv1.2"
-opendistro_security.ssl.http.pemcert_filepath: esnode.pem
-opendistro_security.ssl.http.pemkey_filepath: esnode-key.pem
-opendistro_security.ssl.http.pemtrustedcas_filepath: root-ca.pem
+opendistro_security.ssl.http.pemcert_filepath: ssl/server.crt
+opendistro_security.ssl.http.pemkey_filepath: ssl/server.key
+opendistro_security.ssl.http.pemtrustedcas_filepath: ssl/ca-cert.pem
 opendistro_security.allow_unsafe_democertificates: true
 opendistro_security.allow_default_init_securityindex: true
 opendistro_security.authcz.admin_dn:
@@ -37,3 +37,4 @@ opendistro_security.restapi.roles_enabled: ["all_access", "security_rest_api_acc
 opendistro_security.system_indices.enabled: true
 opendistro_security.system_indices.indices: [".opendistro-alerting-config", ".opendistro-alerting-alert*", ".opendistro-anomaly-results*", ".opendistro-anomaly-detector*", ".opendistro-anomaly-checkpoints", ".opendistro-anomaly-detection-state", ".opendistro-reports-*", ".opendistro-notifications-*", ".opendistro-notebooks", ".opendistro-asynchronous-search-response*"]
 cluster.routing.allocation.disk.threshold_enabled: false
+node.max_local_storage_nodes: {{ opendistro_servers | length | int }} 

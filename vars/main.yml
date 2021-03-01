@@ -27,3 +27,11 @@ opendistro_kibanaro_pass: '{{ lookup("password", "" + group_names[0] + ":kibanar
 opendistro_logstash_pass: '{{ lookup("password", "" + group_names[0] + ":logstash length=12 chars=ascii_letters,digits") }}'
 opendistro_readall_pass: '{{ lookup("password", "" + group_names[0] + ":readall length=12 chars=ascii_letters,digits") }}'
 opendistro_snapshotrestore_pass: '{{ lookup("password", "" + group_names[0] + ":snapshotrestore length=12 chars=ascii_letters,digits") }}'
+
+opendistro_python_dependent_packages:
+  - 'pip==20.3.4'
+  - 'paramiko==2.4.3'
+  - 'pyopenssl==19.0.0'
+  - 'cryptography==2.4.2'
+
+opendistro_pypi_url: 'mirrors.aliyun.com'

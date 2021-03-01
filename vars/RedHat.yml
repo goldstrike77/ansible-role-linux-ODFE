@@ -8,6 +8,7 @@ opendistro_repo:
     url: 'http://cache.omygods.com/elasticsearch-7.x/'
 
 opendistro_packages:
+  - 'python-pip'
   - 'opendistroforelasticsearch'
   - 'opendistroforelasticsearch-kibana'
 

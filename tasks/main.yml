@@ -21,6 +21,9 @@
 - name: Include firewall tasks.
   include: 'firewall.yml'
 
+- name: Include certificate tasks.
+  include: 'certificates.yml'
+
 - name: Include configuration tasks.
   include: 'configureation.yml'
 
