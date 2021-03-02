@@ -19,17 +19,43 @@ opendistro_security.ssl.transport.enforce_hostname_verification: false
 opendistro_security.ssl.transport.resolve_hostname: false
 opendistro_security.ssl.transport.enabled_protocols:
   - "TLSv1.2"
+opendistro_security.ssl.transport.enabled_ciphers:
+  - "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
+  - "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256" 
+  - "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA"
+  - "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+  - "TLS_RSA_WITH_AES_128_CBC_SHA256"
+  - "TLS_RSA_WITH_AES_128_CBC_SHA"
+  - "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384"
+  - "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384"
+  - "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA"
+  - "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+  - "TLS_RSA_WITH_AES_256_CBC_SHA256"
+  - "TLS_RSA_WITH_AES_256_CBC_SHA"
 opendistro_security.ssl.http.enabled: true
 opendistro_security.ssl.http.clientauth_mode: NONE
 opendistro_security.ssl.http.enabled_protocols:
   - "TLSv1.2"
+opendistro_security.ssl.http.enabled_ciphers:
+  - "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"
+  - "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256"
+  - "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA"
+  - "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"
+  - "TLS_RSA_WITH_AES_128_CBC_SHA256"
+  - "TLS_RSA_WITH_AES_128_CBC_SHA"
+  - "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384"
+  - "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384"
+  - "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA"
+  - "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA"
+  - "TLS_RSA_WITH_AES_256_CBC_SHA256"
+  - "TLS_RSA_WITH_AES_256_CBC_SHA"
 opendistro_security.ssl.http.pemcert_filepath: ssl/server.crt
 opendistro_security.ssl.http.pemkey_filepath: ssl/server.key
 opendistro_security.ssl.http.pemtrustedcas_filepath: ssl/ca-cert.pem
 opendistro_security.allow_unsafe_democertificates: true
 opendistro_security.allow_default_init_securityindex: true
 opendistro_security.authcz.admin_dn:
-  - CN=kirk,OU=client,O=client,L=test, C=de
+  - CN=Server
 opendistro_security.audit.type: internal_elasticsearch
 opendistro_security.enable_snapshot_restore_privilege: true
 opendistro_security.check_snapshot_restore_write_privileges: true

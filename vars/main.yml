@@ -8,8 +8,8 @@ opendistro_conf:
   - { src: 'elasticsearch.service', dest: '/lib/systemd/system/elasticsearch.service', mode: '644', owner: 'root' }
   - { src: 'elasticsearch', dest: '/etc/sysconfig/elasticsearch', mode: '644', owner: 'elasticsearch' }
   - { src: 'opendistro-performance-analyzer.service', dest: '/lib/systemd/system/opendistro-performance-analyzer.service', mode: '644', owner: 'root' }
-  - { src: 'internal_users.yml', dest: '/usr/share/elasticsearch/plugins/opendistro_security/securityconfig/internal_users.yml', mode: '644', owner: 'elasticsearch' }
   - { src: 'jvm.options', dest: '/etc/elasticsearch/jvm.options', mode: '644', owner: 'elasticsearch' }
+  - { src: 'internal_users.yml', dest: '/usr/share/elasticsearch/plugins/opendistro_security/securityconfig/internal_users.yml', mode: '644', owner: 'elasticsearch' }
 
 opendistro_exporter_collector:
 #  - 'es.all'
