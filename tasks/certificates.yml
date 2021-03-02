@@ -35,7 +35,7 @@
         path: '/etc/{{ item }}/ssl/server.csr'
         privatekey_path: '/etc/{{ item }}/ssl/server.key'
         select_crypto_backend: 'cryptography'
-        common_name: 'Server'
+        common_name: '{{ opendistro_cluster| upper }}'
         subject_alt_name:
           - 'DNS:{{ ansible_hostname }}'
           - 'DNS:{{ ansible_fqdn }}'

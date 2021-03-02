@@ -15,20 +15,29 @@
       {{ _opendistro_servers }}"
   when: opendistro_servers is not defined or opendistro_servers | length < 1
 
-- name: Include tasks for specific OS.
-  include: '{{ ansible_os_family }}.yml'
+- name: Check if ElasticSearch data exists.
+  stat:
+    path: '{{ opendistro_path }}/elasticsearch/nodes'
+  register: opendistro_es_result
 
-- name: Include firewall tasks.
-  include: 'firewall.yml'
+- name: Open Distro for ElasticSearch operation.
+  block:
+    - name: Include firewall tasks.
+      include: 'firewall.yml'
+    - name: Include tasks for specific OS.
+      include: '{{ ansible_os_family }}.yml'
+    - name: Include certificate tasks.
+      include: 'certificates.yml'
+    - name: Include configuration tasks.
+      include: 'configureation.yml'
+    - name: Force the handler to run immediately.
+      meta: flush_handlers
+  when:
+    - not opendistro_es_result.stat.exists
 
-- name: Include certificate tasks.
-  include: 'certificates.yml'
-
-- name: Include configuration tasks.
-  include: 'configureation.yml'
-
-- name: Force the handler to run immediately.
-  meta: flush_handlers
+- name: Include ElasticSearch exporter tasks.
+  include: 'exporter.yml'
+  when: exporter_is_install | bool
 
 - name: Registered with HashiCorp Consul.
   include: 'register.yml'

@@ -38,16 +38,6 @@
   notify:
     - Restart Kibana service.
 
-- name: ElasticSearch exporter configure file transfer.
-  template:
-    src: 'elasticsearch_exporter.default.j2'
-    dest: '/etc/default/elasticsearch_exporter'
-    owner: 'prometheus'
-    group: 'prometheus'
-    mode: '0640'
-  notify:
-    - Restart ElasticSearch exporter service.
-
 - name: Open Distro internal users password outputs.
   template:
     src: 'opendistro_internal_users.passwd.j2'
