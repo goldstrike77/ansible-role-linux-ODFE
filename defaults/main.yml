@@ -12,10 +12,36 @@ opendistro_memory_lock: false # A boolean to determine whether or not lock the p
 opendistro_port:
   rest: '9200' # TCP port for ElasticSearch REST.
   transport: '9300' # TCP port for ElasticSearch transport port ragne.
-  exporter: '9108' # TCP port for Prometheus Exporter.
+  elasticsearch_exporter: '9108' # TCP port for Prometheus Exporter.
   kibana: '5601' # TCP port for Kibana server.
   analyzer_web: '9601' # TCP port for performance analyzer WebService exposed.
   analyzer_rpc: '9650' # TCP port for performance analyzer RPC Communication.
+  logstash_exporter: '9198' # TCP Port for Logstash exporter.
+  logstash_api: '9600' # TCP Port for the Logstash metrics REST endpoint.
+
+# Logstash parameters #
+opendistro_logstash_version: '7.10.2' # Specify the Logstash version.
+opendistro_logstash_heap_size: '1g' # Specify the maximum memory allocation pool for a Java virtual machine.
+opendistro_logstash_inputs_arg: # Define the global common inputs parameters.
+#  - name: 'cisco-asa'
+#    protocol: 'udp'
+#    port: '10514'
+  - name: 'syslog-rfc'
+    protocol: 'syslog'
+    port: '1514'
+  - name: 'syslog-beats'
+    protocol: 'beats'
+    port: '5044'
+  - name: 'syslog-gelf'
+    protocol: 'udp'
+    port: '12201'
+  - name: 'nginx-json'
+    protocol: 'syslog'
+    port: '12301'
+#  - name: 'azure-nsg'
+#    sa_name: 'xxxxx'
+#    sa_access_key: 'xxxxx'
+#    sa_container: 'xxxxx'
 
 # Server System Variables #
 opendistro_arg:

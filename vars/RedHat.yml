@@ -11,6 +11,7 @@ opendistro_packages:
   - 'python-pip'
   - 'opendistroforelasticsearch'
   - 'opendistroforelasticsearch-kibana'
+  - 'logstash-oss-{{ opendistro_logstash_version }}'
 
 opendistro_exporter_repo_name: 'prometheus'
 opendistro_exporter_repo_url: 'http://cache.omygods.com/prometheus-rpm/release/el/$releasever/$basearch/'

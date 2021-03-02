@@ -2,13 +2,20 @@
 opendistro_kernel_parameters:
   - { variable: 'vm.max_map_count', value: '262144' }
   - { variable: 'vm.swappiness', value: '10' }
+  - { variable: 'net.core.somaxconn', value: '65535' }
+  - { variable: 'net.core.netdev_max_backlog', value: '262144' }
+  - { variable: 'net.core.rmem_max', value: '2097152' }
+  - { variable: 'net.core.rmem_default', value: '2097152' }
+  - { variable: 'net.ipv4.udp_rmem_min', value: '16384' }
+  - { variable: 'net.ipv4.udp_mem', value: '2097152 4194304 8388608' }
 
 opendistro_conf:
   - { src: 'elasticsearch.yml', dest: '/etc/elasticsearch/elasticsearch.yml', mode: '640', owner: 'elasticsearch' }
   - { src: 'elasticsearch.service', dest: '/lib/systemd/system/elasticsearch.service', mode: '644', owner: 'root' }
   - { src: 'elasticsearch', dest: '/etc/sysconfig/elasticsearch', mode: '644', owner: 'elasticsearch' }
   - { src: 'opendistro-performance-analyzer.service', dest: '/lib/systemd/system/opendistro-performance-analyzer.service', mode: '644', owner: 'root' }
-  - { src: 'jvm.options', dest: '/etc/elasticsearch/jvm.options', mode: '644', owner: 'elasticsearch' }
+  - { src: 'jvm.options.elasticsearch.j2', dest: '/etc/elasticsearch/jvm.options', mode: '644', owner: 'elasticsearch' }
+  - { src: 'jvm.options.logstash.j2', dest: '/etc/logstash/jvm.options', mode: '644', owner: 'elasticsearch' }
   - { src: 'internal_users.yml', dest: '/usr/share/elasticsearch/plugins/opendistro_security/securityconfig/internal_users.yml', mode: '644', owner: 'elasticsearch' }
   - { src: 'performance-analyzer.properties', dest: '/usr/share/elasticsearch/plugins/opendistro-performance-analyzer/pa_config/performance-analyzer.properties', mode: '644', owner: 'root' }
 
