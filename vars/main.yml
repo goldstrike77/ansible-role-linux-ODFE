@@ -10,6 +10,7 @@ opendistro_conf:
   - { src: 'opendistro-performance-analyzer.service', dest: '/lib/systemd/system/opendistro-performance-analyzer.service', mode: '644', owner: 'root' }
   - { src: 'jvm.options', dest: '/etc/elasticsearch/jvm.options', mode: '644', owner: 'elasticsearch' }
   - { src: 'internal_users.yml', dest: '/usr/share/elasticsearch/plugins/opendistro_security/securityconfig/internal_users.yml', mode: '644', owner: 'elasticsearch' }
+  - { src: 'performance-analyzer.properties', dest: '/usr/share/elasticsearch/plugins/opendistro-performance-analyzer/pa_config/performance-analyzer.properties', mode: '644', owner: 'root' }
 
 opendistro_exporter_collector:
 #  - 'es.all'
