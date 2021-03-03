@@ -19,8 +19,8 @@
 # Xms represents the initial size of total heap space
 # Xmx represents the maximum size of total heap space
 
--Xms{{ opendistro_heap_size | default('1g') }}
--Xmx{{ opendistro_heap_size | default('1g') }}
+-Xms{{ opendistro_es_heap_size | default('1g') }}
+-Xmx{{ opendistro_es_heap_size | default('1g') }}
 
 ################################################################
 ## Expert settings

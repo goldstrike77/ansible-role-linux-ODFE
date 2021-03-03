@@ -57,6 +57,29 @@
   changed_when: false
   failed_when: false
 
+- name: Register LogStash service with an health check.
+  uri:
+    url: '{{ consul_public_http_prot }}://{{ ansible_default_ipv4.address }}:{{ consul_public_http_port }}/v1/agent/service/register'
+    method: 'PUT'
+    body: '{"tags":["logstash"],"ID":"{{ customer | lower | regex_replace("_", "-") }}-{{ environments | lower | regex_replace("_", "-") }}-{{ group_names[-1] | lower | regex_replace("_", "-") }}-{{ group_names[0] | lower | regex_replace("_", "-") }}-logstash","name":"{{ customer | lower | regex_replace("_", "-") }}-{{ environments | lower | regex_replace("_", "-") }}-{{ group_names[-1] | lower | regex_replace("_", "-") }}-{{ group_names[0] | lower | regex_replace("_", "-") }}-logstash","address":"{{ ansible_default_ipv4.address }}","checks":[{"http":"http://127.0.0.1:{{ opendistro_port.logstash_api }}/_node","interval":"10s","tls_skip_verify":true,"method":"HEAD","timeout":"10s"}]}'
+    body_format: 'json'
+    status_code: '200'
+    headers:
+      X-Consul-Token: '{{ consul_public_exporter_token }}'
+      X-Requested-By: '{{ ansible_default_ipv4.address }}'
+      cache-control: 'no-cache'
+    validate_certs: 'no'
+  environment:
+    no_proxy: '{{ ansible_default_ipv4.address }}'
+  when: check_consul_local.status == 405
+  register: register_status
+  until: register_status.status == 200
+  retries: 3
+  delay: 2
+  no_log: true
+  changed_when: false
+  failed_when: false
+
 - name: Check register client are accessible from current host.
   uri:
     url: '{{ consul_public_http_prot }}://{{ item }}:{{ consul_public_http_port }}/v1/agent/service/register'
@@ -75,6 +98,54 @@
     url: '{{ consul_public_http_prot }}://{{ item.client }}:{{ consul_public_http_port }}/v1/agent/service/register'
     method: 'PUT'
     body: '{"tags":["prometheus","exporter"],"ID":"{{ ansible_hostname | lower }}_elasticsearch_exporter","name":"elasticsearch_exporter","address":"{{ ansible_default_ipv4.address }}","port":{{ opendistro_port.exporter }},"meta":{"application":"Search Engine","instance":"{{ ansible_hostname | lower }}","customer":"{{ customer | title | regex_replace("_", "-") }}","project":"{{ group_names[-1] | title | regex_replace("_", "-") }}","group":"{{ group_names[0] | title | regex_replace("_", "-") }}","environment":"{{ environments | lower }}","datacenter": "{{ datacenter | lower }}","domain":"{{ domain | lower }}","cluster":"{{ opendistro_cluster | upper }}"{% if tags is defined %},{{ tags | to_json | regex_replace("{") | regex_replace("}") }}{% endif %}}}'
+    body_format: 'json'
+    status_code: '200'
+    headers:
+      X-Consul-Token: '{{ consul_public_exporter_token }}'
+      X-Requested-By: '{{ ansible_default_ipv4.address }}'
+      cache-control: 'no-cache'
+    validate_certs: 'no'
+  environment:
+    no_proxy: '{{ item.client }}'
+  loop: "{{ check_consul_reg.results | json_query('[*].{client:item,status:status}') }}"
+  when: item.status == 405
+  register: register_status
+  until: register_status.status == 200
+  retries: 3
+  delay: 2
+  no_log: true
+  changed_when: false
+  failed_when: false
+
+- name: Register Kibana exporter with an health check.
+  uri:
+    url: '{{ consul_public_http_prot }}://{{ item.client }}:{{ consul_public_http_port }}/v1/agent/service/register'
+    method: 'PUT'
+    body: '{"tags":["prometheus","exporter"],"ID":"{{ ansible_hostname | lower }}_kibana_exporter","name":"kibana_exporter","address":"{{ ansible_default_ipv4.address }}","port":{{ opendistro_port.kibana }},"meta":{"application":"Visualization","scheme":"https","metrics_path":"/_prometheus/metrics","instance":"{{ ansible_hostname | lower }}","customer":"{{ customer | title | regex_replace("_", "-") }}","project":"{{ group_names[-1] | title | regex_replace("_", "-") }}","group":"{{ group_names[0] | title | regex_replace("_", "-") }}","datacenter": "{{ datacenter | lower }}","domain":"{{ domain | lower }}","environment":"{{ environments | lower }}"{% if tags is defined %},{{ tags | to_json | regex_replace("{") | regex_replace("}") }}{% endif %}}}'
+    body_format: 'json'
+    status_code: '200'
+    headers:
+      X-Consul-Token: '{{ consul_public_exporter_token }}'
+      X-Requested-By: '{{ ansible_default_ipv4.address }}'
+      cache-control: 'no-cache'
+    validate_certs: 'no'
+  environment:
+    no_proxy: '{{ item.client }}'
+  loop: "{{ check_consul_reg.results | json_query('[*].{client:item,status:status}') }}"
+  when: item.status == 405
+  register: register_status
+  until: register_status.status == 200
+  retries: 3
+  delay: 2
+  no_log: true
+  changed_when: false
+  failed_when: false
+
+- name: Register LogStash exporter with an health check.
+  uri:
+    url: '{{ consul_public_http_prot }}://{{ item.client }}:{{ consul_public_http_port }}/v1/agent/service/register'
+    method: 'PUT'
+    body: '{"tags":["prometheus","exporter"],"ID":"{{ ansible_hostname | lower }}_logstash_exporter","name":"logstash_exporter","address":"{{ ansible_default_ipv4.address }}","port":{{ opendistro_port.logstash_exporter }},"meta":{"application":"Pipeline","metrics_path":"/metrics","instance":"{{ ansible_hostname | lower }}","customer":"{{ customer | title | regex_replace("_", "-") }}","project":"{{ group_names[-1] | title | regex_replace("_", "-") }}","group":"{{ group_names[0] | title | regex_replace("_", "-") }}","environment":"{{ environments | lower }}","datacenter": "{{ datacenter | lower }}","domain":"{{ domain | lower }}","cluster":"{{ opendistro_cluster | upper }}"{% if tags is defined %},{{ tags | to_json | regex_replace("{") | regex_replace("}") }}{% endif %}}}'
     body_format: 'json'
     status_code: '200'
     headers:

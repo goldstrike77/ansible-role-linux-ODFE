@@ -1,0 +1,47 @@
+---
+- name: Open Distro configuration file transfer.
+  template:
+    src: '{{ item.src }}.j2'
+    dest: '{{ item.dest }}'
+    owner: '{{ item.owner }}'
+    group: '{{ item.owner }}'
+    mode: '{{ item.mode }}'
+  loop: '{{ opendistro_conf }}'
+  notify:
+    - Restart ElasticSearch service.
+
+- name: Kibana configuration file transfer.
+  template:
+    src: 'kibana.yml.j2'
+    dest: '/etc/kibana/kibana.yml'
+    owner: 'kibana'
+    group: 'kibana'
+    mode: '640'
+  notify:
+    - Restart Kibana service.
+
+- name: Open Distro internal users password outputs.
+  template:
+    src: 'opendistro_internal_users.passwd.j2'
+    dest: '/tmp/opendistro_internal_users.passwd'
+    mode: '0600'
+    owner: 'root'
+    group: 'root'
+  when: opendistro_servers[0] in ansible_default_ipv4.address
+  no_log: true
+
+- name: Install kibana prometheus plugins.
+  shell: >-
+    NODE_OPTIONS="--no-warnings --max-old-space-size=4096" /usr/share/kibana/bin/kibana-plugin install
+    'http://github.com/pjhampton/kibana-prometheus-exporter/releases/download/{{ opendistro_logstash_version }}/kibana-prometheus-exporter-{{ opendistro_logstash_version }}.zip'
+  args:
+    executable: '/bin/bash'
+    chdir: '/usr/share/kibana'
+  become: 'yes'
+  become_user: 'kibana'
+  register: opendistro_kibana_prometheus_plugin
+  until: opendistro_kibana_prometheus_plugin is succeeded
+  retries: 5
+  delay: 2
+  changed_when: false
+  failed_when: false

@@ -1,7 +1,4 @@
 ---
-- name: Include OS-specific variables.
-  include_vars: '{{ ansible_os_family }}.yml'
-
 - name: Gather ElasticSearch node variables for cluster.
   set_fact:
     opendistro_servers: "\
@@ -14,6 +11,12 @@
       {% endfor %}\
       {{ _opendistro_servers }}"
   when: opendistro_servers is not defined or opendistro_servers | length < 1
+
+- name: Include OS-specific variables.
+  include_vars: '{{ ansible_os_family }}.yml'
+
+- name: Include Configureation operation.
+  include: 'configureation.yml'
 
 - name: Check if ElasticSearch data exists.
   stat:
@@ -29,11 +32,14 @@
     - name: Include certificate tasks.
       include: 'certificates.yml'
     - name: Include configuration tasks.
-      include: 'configureation.yml'
+      include: 'opendistro.yml'
     - name: Force the handler to run immediately.
       meta: flush_handlers
   when:
     - not opendistro_es_result.stat.exists
+
+- name: Include LogStash operation.
+  include: 'logstash.yml'
 
 - name: Include ElasticSearch exporter tasks.
   include: 'exporter.yml'

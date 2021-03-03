@@ -1,0 +1,12 @@
+path.data: {{ opendistro_path }}/logstash
+pipeline.workers: {{ opendistro_logstash_arg.pipeline_workers }}
+pipeline.batch.size: {{ opendistro_logstash_arg.pipeline_batch_size }}
+pipeline.batch.delay: {{ opendistro_logstash_arg.pipeline_batch_delay }}
+pipeline.ordered: auto
+config.reload.automatic: false
+config.reload.interval: 3s
+http.enabled: true
+http.host: 127.0.0.1
+http.port: {{ opendistro_port.logstash_api }}
+log.level: info
+path.logs: /var/log/logstash
