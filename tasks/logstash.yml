@@ -76,5 +76,6 @@
     owner: 'logstash'
     group: 'logstash'
     mode: '0640'
+  loop: '{{ opendistro_logstash_inputs_arg }}'
   notify:
     - Restart LogStash service.

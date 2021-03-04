@@ -94,7 +94,6 @@ output {
       template => "/etc/logstash/template/elastic-azure-nsg-template.json"
       template_name => "azure-nsg"
       template_overwrite => true
-      document_type => "_doc"
       document_id => "%{[@metadata][uuid]}"
     }
   }

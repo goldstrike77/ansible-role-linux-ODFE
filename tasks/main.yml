@@ -12,8 +12,11 @@
       {{ _opendistro_servers }}"
   when: opendistro_servers is not defined or opendistro_servers | length < 1
 
-- name: Include OS-specific variables.
-  include_vars: '{{ ansible_os_family }}.yml'
+- name: Include firewall tasks.
+  include: 'firewall.yml'
+
+- name: Include tasks for specific OS.
+  include: '{{ ansible_os_family }}.yml'
 
 - name: Include Configureation operation.
   include: 'configureation.yml'
@@ -25,10 +28,6 @@
 
 - name: Open Distro for ElasticSearch operation.
   block:
-    - name: Include firewall tasks.
-      include: 'firewall.yml'
-    - name: Include tasks for specific OS.
-      include: '{{ ansible_os_family }}.yml'
     - name: Include certificate tasks.
       include: 'certificates.yml'
     - name: Include configuration tasks.

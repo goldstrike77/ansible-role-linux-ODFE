@@ -26,7 +26,6 @@ output {
       template => "/etc/logstash/template/elastic-syslog-gelf-template.json"
       template_name => "syslog-gelf"
       template_overwrite => true
-      document_type => "_doc"
       document_id => "%{[@metadata][uuid]}"
     }
   }

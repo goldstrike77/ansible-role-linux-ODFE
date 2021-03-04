@@ -56,10 +56,6 @@ opendistro_arg:
   http_cors_enabled: true # Enable or disable cross-origin resource sharing.
   http_cors_allow_methods: 'HEAD, GET, POST, PUT, DELETE' # Which methods to allow.
 
-opendistro_kibana_plugins: # Specify Plug-in List.
-  - 'http://github.com/nsano-rururu/elastalert-kibana-plugin/releases/download/1.3.0/elastalert-kibana-plugin-1.3.0-{{ logstash_version }}.zip'
-
-
 # Service Mesh #
 environments: 'prd' # Define the service environment.
 datacenter: 'dc01' # Define the DataCenter.
