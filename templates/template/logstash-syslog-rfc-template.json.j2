@@ -2,11 +2,8 @@
   "index_patterns": [
     "logstash-syslog-rfc*"
   ],
-  "create": true
-  "template": {
-    "settings": {
-      "refresh_interval": "{{ opendistro_logstash_arg.index_refresh_interval }}",
-      "number_of_shards": "{{ opendistro_servers | length }}"
-    }
+  "settings": {
+    "refresh_interval": "{{ opendistro_logstash_arg.index_refresh_interval }}",
+    "number_of_shards": "{{ opendistro_servers | length }}"
   }
 }

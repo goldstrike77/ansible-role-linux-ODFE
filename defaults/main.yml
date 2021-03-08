@@ -1,7 +1,7 @@
 ---
 # General parameters #
 opendistro_is_install: false # A boolean to determine whether or not to install the Open Distro for ElasticSearch.
-opendistro_version: '1.13.0' # Specify the Open Distro for ElasticSearch version.
+opendistro_version: '1.13.1' # Specify the Open Distro for ElasticSearch version.
 opendistro_logstash_version: '7.10.2' # Specify the Logstash version.
 opendistro_path: '/data' # Specify the Open Distro for ElasticSearch storage directory.
 opendistro_cluster: 'siem' # Specify name for your ElasticSearch cluster.

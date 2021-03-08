@@ -13,7 +13,7 @@
   loop: '{{ opendistro_repo }}'
 
 - name: Install the Open Distro packages.
-  package:
+  package: 
     name: '{{ opendistro_packages }}'
     state: 'present'
     validate_certs: 'no'

@@ -34,11 +34,7 @@
       include: 'opendistro.yml'
     - name: Force the handler to run immediately.
       meta: flush_handlers
-  when:
-    - not opendistro_es_result.stat.exists
-
-- name: Include LogStash operation.
-  include: 'logstash.yml'
+  when: not opendistro_es_result.stat.exists
 
 - name: Include ElasticSearch exporter tasks.
   include: 'exporter.yml'
@@ -53,3 +49,6 @@
 - name: Include Index State Management tasks.
   include: 'ISM.yml'
   when: opendistro_servers[0] in ansible_default_ipv4.address
+
+- name: Include LogStash operation.
+  include: 'logstash.yml'

@@ -9,8 +9,8 @@ opendistro_repo:
 
 opendistro_packages:
   - 'python-pip'
-  - 'opendistroforelasticsearch'
-  - 'opendistroforelasticsearch-kibana'
+  - 'opendistroforelasticsearch-{{ opendistro_version }}-1'
+  - 'opendistroforelasticsearch-kibana-{{ opendistro_version }}-1'
   - 'logstash-oss-{{ opendistro_logstash_version }}'
 
 opendistro_exporter_repo_name: 'prometheus'

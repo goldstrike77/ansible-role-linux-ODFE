@@ -2,12 +2,9 @@
   "index_patterns": [
     "logstash-cisco-asa*"
   ],
-  "create": true
-  "template": {
-    "settings": {
-      "refresh_interval": "{{ opendistro_logstash_arg.index_refresh_interval }}",
-      "number_of_shards": "{{ opendistro_servers | length }}"
-    }
+  "settings": {
+    "refresh_interval": "{{ opendistro_logstash_arg.index_refresh_interval }}",
+    "number_of_shards": "{{ opendistro_servers | length }}"
   },
   "mappings": {
     "properties": {
