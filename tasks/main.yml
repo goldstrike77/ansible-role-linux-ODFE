@@ -49,3 +49,7 @@
   when:
     - exporter_is_install | bool
     - consul_public_register | bool
+
+- name: Include Index State Management tasks.
+  include: 'ISM.yml'
+  when: opendistro_servers[0] in ansible_default_ipv4.address

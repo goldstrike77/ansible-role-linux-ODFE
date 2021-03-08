@@ -6,6 +6,7 @@ opendistro_logstash_version: '7.10.2' # Specify the Logstash version.
 opendistro_path: '/data' # Specify the Open Distro for ElasticSearch storage directory.
 opendistro_cluster: 'siem' # Specify name for your ElasticSearch cluster.
 opendistro_admin_pass: 'changeme' # The password for administrator.
+opendistro_rotate_day: '180' # Specify the logs retention days.
 opendistro_es_heap_size: '3g' # Specify the maximum memory allocation pool for a Java virtual machine on ElasticSearch.
 opendistro_logstash_heap_size: '1g' # Specify the maximum memory allocation pool for a Java virtual machine on LogStash.
 opendistro_memory_lock: false # A boolean to determine whether or not lock the process address space into memory on startup.

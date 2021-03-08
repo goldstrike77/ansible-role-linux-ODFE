@@ -57,8 +57,8 @@
 
 - name: Logstash input template file transfer.
   template:
-    src: 'template/elastic-{{ item.name }}-template.json.j2'
-    dest: '/etc/logstash/template/elastic-{{ item.name }}-template.json'
+    src: 'template/logstash-{{ item.name }}-template.json.j2'
+    dest: '/etc/logstash/template/logstash-{{ item.name }}-template.json'
     backup: 'yes'
     owner: 'logstash'
     group: 'logstash'

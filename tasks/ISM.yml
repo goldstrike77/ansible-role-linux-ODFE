@@ -1,0 +1,20 @@
+---
+- name: Change Elasticsearch user password
+  uri:
+    url: 'https://{{ ansible_default_ipv4.address }}{{ opendistro_port.kibana }}:/_opendistro/_ism/policies/default'
+    method: 'PUT'
+    user: 'admin'
+    password: '{{ opendistro_admin_pass }}'
+    validate_certs: 'no'
+    body: '{"policy":{"description":"A default policy.","default_state":"hot","states":[{"name":"hot","actions":[{"replica_count":{"number_of_replicas":3}}],"transitions":[{"state_name":"warm","conditions":{"min_index_age":"2d"}}]},{"name":"warm","actions":[{"read_only":{},"replica_count":{"number_of_replicas":1}}],"transitions":[{"state_name":"cold","conditions":{"min_index_age":"5d"}}]},{"name":"cold","actions":[{"read_only":{},"replica_count":{"number_of_replicas":1}}],"transitions":[{"state_name":"delete","conditions":{"min_index_age":"{{ opendistro_rotate_day }}d"}}]},{"name":"delete","actions":[{"delete":{}}]}],"ism_template":{"index_patterns":["logstash-*","*beat*"],"priority":100}}}'
+    body_format: 'json'
+    force_basic_auth: 'yes'
+  environment:
+    no_proxy: '{{ ansible_default_ipv4.address }}'
+  register: opendistro_ism_status
+  until: opendistro_ism_status.status == 200
+  retries: 5
+  delay: 2
+  changed_when: false
+  failed_when: false
+  no_log: true

@@ -1,0 +1,12 @@
+{
+  "index_patterns": [
+    "logstash-azure-nsg*"
+  ],
+  "create": true
+  "template": {
+    "settings": {
+      "refresh_interval": "{{ opendistro_logstash_arg.index_refresh_interval }}",
+      "number_of_shards": "{{ opendistro_servers | length }}"
+    }
+  }
+}

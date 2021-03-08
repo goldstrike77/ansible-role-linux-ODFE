@@ -32,8 +32,8 @@ output {
       user => "logstash"
       password => "{{ lookup("password", "" + group_names[0] + ":logstash length=12 chars=ascii_letters,digits") }}"
       index => "logstash-nginx-json-%{+YYYY.MM.dd}"
-      template => "/etc/logstash/template/elastic-nginx-json-template.json"
-      template_name => "nginx-json"
+      template => "/etc/logstash/template/logstash-nginx-json-template.json"
+      template_name => "logstash-nginx-json"
       template_overwrite => true
       document_id => "%{[@metadata][uuid]}"
     }
