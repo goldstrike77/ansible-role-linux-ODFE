@@ -25,7 +25,7 @@
     user: 'admin'
     password: '{{ opendistro_admin_pass }}'
     validate_certs: 'no'
-    body: '{"policy":{"description":"A default policy.","default_state":"hot","states":[{"name":"hot","actions":[{"replica_count":{"number_of_replicas":{% if opendistro_servers | length > 1 %}{{ opendistro_servers | length }}{% else %}0{% endif %}}}],"transitions":[{"state_name":"warm","conditions":{"min_index_age":"2d"}}]},{"name":"warm","actions":[{"read_only":{},"replica_count":{"number_of_replicas":{% if opendistro_servers | length > 1 %}1{% else %}0{% endif %}}}],"transitions":[{"state_name":"cold","conditions":{"min_index_age":"5d"}}]},{"name":"cold","actions":[{"read_only":{},"replica_count":{"number_of_replicas":{% if opendistro_servers | length > 1 %}1{% else %}0{% endif %}}}],"transitions":[{"state_name":"delete","conditions":{"min_index_age":"{{ opendistro_rotate_day }}d"}}]},{"name":"delete","actions":[{"delete":{}}]}],"ism_template":{"index_patterns":["logstash-*","*beat*"],"priority":100}}}'
+    body: '{"policy":{"description":"A default policy.","default_state":"hot","states":[{"name":"hot","actions":[{"replica_count":{"number_of_replicas":{% if opendistro_servers | length > 1 %}1{% else %}0{% endif %}}}],"transitions":[{"state_name":"cold","conditions":{"min_index_age":"2d"}}]},{"name":"cold","actions":[{"read_only":{}}],"transitions":[{"state_name":"delete","conditions":{"min_index_age":"{{ opendistro_rotate_day }}d"}}]},{"name":"delete","actions":[{"delete":{}}]}],"ism_template":{"index_patterns":["logstash-*","*beat*"],"priority":100}}}'
     body_format: 'json'
     status_code: '201,-1'
     force_basic_auth: 'yes'
