@@ -1,4 +1,14 @@
 ---
+opendistro_servers: "\
+  {% set _opendistro_servers = [] %}\
+  {% for host in groups[group_names[0]] %}\
+    {% set _opendistro_cluster = opendistro_cluster | default('', true) %}\
+    {% if ( _opendistro_cluster == opendistro_cluster) %}\
+      {% if _opendistro_servers.append(hostvars[host]['ansible_host']) %}{% endif %}\
+    {% endif %}\
+  {% endfor %}\
+  {{ _opendistro_servers }}"
+
 opendistro_kernel_parameters:
   - { variable: 'vm.max_map_count', value: '262144' }
   - { variable: 'vm.swappiness', value: '10' }

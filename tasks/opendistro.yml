@@ -10,16 +10,6 @@
   notify:
     - Restart ElasticSearch service.
 
-- name: Kibana configuration file transfer.
-  template:
-    src: 'kibana.yml.j2'
-    dest: '/etc/kibana/kibana.yml'
-    owner: 'kibana'
-    group: 'kibana'
-    mode: '640'
-  notify:
-    - Restart Kibana service.
-
 - name: Open Distro internal users password outputs.
   template:
     src: 'opendistro_internal_users.passwd.j2'

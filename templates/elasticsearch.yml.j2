@@ -7,11 +7,11 @@ network.host: {{ ansible_default_ipv4.address }}
 http.port: {{ opendistro_port.rest }}
 discovery.seed_hosts: ['{{ opendistro_servers | list | join(":" + opendistro_port.transport + "', '") }}:{{ opendistro_port.transport }}']
 cluster.initial_master_nodes: ['{{ opendistro_servers | list | join(":" + opendistro_port.transport + "', '") }}:{{ opendistro_port.transport }}']
-cluster.max_shards_per_node: {{ opendistro_arg.cluster_max_shards_per_node | default('1000') }}
-action.destructive_requires_name: {{ opendistro_arg.action_destructive_requires_name | bool | to_json }}
-http.compression: {{ opendistro_arg.http_compression | bool | to_json }}
-http.cors.enabled: {{ opendistro_arg.http_cors_enabled | bool | to_json }}
-http.cors.allow-methods: {{ opendistro_arg.http_cors_allow_methods }}
+cluster.max_shards_per_node: {{ opendistro_es_arg.cluster_max_shards_per_node | default('1000') }}
+action.destructive_requires_name: {{ opendistro_es_arg.action_destructive_requires_name | bool | to_json }}
+http.compression: {{ opendistro_es_arg.http_compression | bool | to_json }}
+http.cors.enabled: {{ opendistro_es_arg.http_cors_enabled | bool | to_json }}
+http.cors.allow-methods: {{ opendistro_es_arg.http_cors_allow_methods }}
 opendistro_security.ssl.transport.pemcert_filepath: ssl/server.crt
 opendistro_security.ssl.transport.pemkey_filepath: ssl/server.key
 opendistro_security.ssl.transport.pemtrustedcas_filepath: ssl/ca-cert.pem

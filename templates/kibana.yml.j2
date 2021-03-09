@@ -22,3 +22,7 @@ newsfeed.enabled: false
 telemetry.optIn: false
 telemetry.enabled: false
 security.showInsecureClusterWarning: false
+server.rewriteBasePath: {{ opendistro_kibana_proxy | bool | to_json }}
+{% if opendistro_kibana_proxy | bool %}
+server.basePath: "/kibana"
+{% endif %}

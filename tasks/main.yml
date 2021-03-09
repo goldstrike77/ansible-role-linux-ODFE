@@ -1,17 +1,4 @@
 ---
-- name: Gather ElasticSearch node variables for cluster.
-  set_fact:
-    opendistro_servers: "\
-      {% set _opendistro_servers = [] %}\
-      {% for host in groups[group_names[0]] %}\
-        {% set _opendistro_cluster = opendistro_cluster | default('', true) %}\
-        {% if ( _opendistro_cluster == opendistro_cluster) %}\
-          {% if _opendistro_servers.append(hostvars[host]['ansible_host']) %}{% endif %}\
-        {% endif %}\
-      {% endfor %}\
-      {{ _opendistro_servers }}"
-  when: opendistro_servers is not defined or opendistro_servers | length < 1
-
 - name: Include firewall tasks.
   include: 'firewall.yml'
 
@@ -21,20 +8,23 @@
 - name: Include Configureation operation.
   include: 'configureation.yml'
 
+- name: Include certificate tasks.
+  include: 'certificates.yml'
+
 - name: Check if ElasticSearch data exists.
   stat:
     path: '{{ opendistro_path }}/elasticsearch/nodes'
   register: opendistro_es_result
 
-- name: Open Distro for ElasticSearch operation.
-  block:
-    - name: Include certificate tasks.
-      include: 'certificates.yml'
-    - name: Include configuration tasks.
-      include: 'opendistro.yml'
-    - name: Force the handler to run immediately.
-      meta: flush_handlers
+- name: Include configuration tasks.
+  include: 'opendistro.yml'
   when: not opendistro_es_result.stat.exists
+
+- name: Include Kibana tasks.
+  include: 'kibana.yml'
+
+- name: Force the handler to run immediately.
+  meta: flush_handlers
 
 - name: Include ElasticSearch exporter tasks.
   include: 'exporter.yml'
