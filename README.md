@@ -66,6 +66,7 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 * `opendistro_port.transport`: TCP port for ElasticSearch transport port ragne.
 * `opendistro_port.elasticsearch_exporter`: TCP port for Prometheus Exporter.
 * `opendistro_port.kibana`: TCP port for Kibana server.
+* `opendistro_port.kibana_exporter`: TCP port for Kibana exporter..
 * `opendistro_port.analyzer_web`: TCP port for performance analyzer WebService exposed.
 * `opendistro_port.analyzer_rpc`: TCP port for performance analyzer RPC Communication.
 * `opendistro_port.logstash_exporter`: TCP Port for Logstash exporter.
@@ -161,6 +162,7 @@ opendistro_port:
   transport: '9300'
   elasticsearch_exporter: '9108'
   kibana: '5601'
+  kibana_exporter: '9684'
   analyzer_web: '9601'
   analyzer_rpc: '9650'
   logstash_exporter: '9198'

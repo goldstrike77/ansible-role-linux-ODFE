@@ -21,6 +21,7 @@ opendistro_port:
   transport: '9300' # TCP port for ElasticSearch transport port ragne.
   elasticsearch_exporter: '9108' # TCP port for Prometheus Exporter.
   kibana: '5601' # TCP port for Kibana server.
+  kibana_exporter: '9684' # TCP port for Kibana exporter.
   analyzer_web: '9601' # TCP port for performance analyzer WebService exposed.
   analyzer_rpc: '9650' # TCP port for performance analyzer RPC Communication.
   logstash_exporter: '9198' # TCP Port for Logstash exporter.

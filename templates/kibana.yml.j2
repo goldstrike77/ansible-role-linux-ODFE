@@ -1,6 +1,7 @@
 server.port: {{ opendistro_port.kibana | default('5601') }}
 server.host: "{{ ansible_default_ipv4.address }}"
 server.name: "{{ ansible_hostname | lower }}"
+status.allowAnonymous: true
 server.ssl.enabled: true
 server.ssl.certificate: /etc/kibana/ssl/server.crt
 server.ssl.key: /etc/kibana/ssl/server.key
