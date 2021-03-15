@@ -10,6 +10,7 @@ ___
 __Table of Contents__
 
 - [Overview](#overview)
+- [Architecture](#Architecture)
 - [Requirements](#requirements)
   * [Operating systems](#operating-systems)
   * [Opendistro Versions](#opendistro-versions)
@@ -29,6 +30,9 @@ __Table of Contents__
 ## Overview
 Open Distro provides a powerful, easy-to-use event monitoring and alerting system, enabling you to monitor your data and send notifications automatically to your stakeholders. With an intuitive Kibana interface and powerful API, it is easy to set up and manage alerts. Build specific alert conditions using Elasticsearch's query and scripting capabilities. Alerts help teams reduce response times for operational and security events. All of the plugins included in Open Distro are licensed under the Apache License, Version 2.0.
 >__There is a file that records the internal users password in /tmp folder at the first node, Burn after reading!__
+
+## Architecture
+<p><img src="https://raw.githubusercontent.com/goldstrike77/docs/master/Opendistro/ELK_Diagram.png" /></p>
 
 ## Requirements
 ### Operating systems
