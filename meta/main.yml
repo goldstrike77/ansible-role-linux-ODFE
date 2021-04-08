@@ -52,9 +52,9 @@ dependencies:
   # if you add dependencies to this list.
   - role: 'ansible-role-linux-nginx'
     vars:
-      ngx_block_agents: '{{ opendistro_ngx_block_agents | bool }}'
-      ngx_block_string: '{{ opendistro_ngx_block_string | bool }}'
-      ngx_compress: '{{ opendistro_ngx_compress | bool }}'
+      ngx_block_agents: true
+      ngx_block_string: true
+      ngx_compress: true
       ngx_port_http: '{{ opendistro_ngx_port_http }}'
       ngx_port_https: '{{ opendistro_ngx_port_https }}'
       ngx_ssl_protocols: 'modern'

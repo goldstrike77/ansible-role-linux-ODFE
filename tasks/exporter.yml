@@ -17,8 +17,7 @@
     owner: 'prometheus'
     group: 'prometheus'
     mode: '0640'
-  notify:
-    - Restart ElasticSearch exporter service.
+  notify: Restart ElasticSearch exporter service.
 
 - name: LogStash exporter program binary transfer.
   unarchive:
@@ -27,8 +26,7 @@
     owner: 'logstash'
     group: 'logstash'
     mode: '0755'
-  notify:
-    - Restart LogStash exporter service.
+  notify: Restart LogStash exporter service.
 
 - name: LogStash exporter configure file transfer.
   template:
@@ -37,8 +35,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  notify:
-    - Restart LogStash exporter service.
+  notify: Restart LogStash exporter service.
 
 - name: LogStash service file transfer.
   copy:
@@ -47,8 +44,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  notify:
-    - Restart LogStash exporter service.
+  notify: Restart LogStash exporter service.
 
 - name: Kibana exporter program binary transfer.
   unarchive:
@@ -57,8 +53,7 @@
     owner: 'kibana'
     group: 'kibana'
     mode: '0755'
-  notify:
-    - Restart Kibana exporter service.
+  notify: Restart Kibana exporter service.
 
 - name: Kibana exporter configure file transfer.
   template:
@@ -67,8 +62,7 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  notify:
-    - Restart Kibana exporter service.
+  notify: Restart Kibana exporter service.
 
 - name: Kibana service file transfer.
   copy:
@@ -77,5 +71,4 @@
     owner: 'root'
     group: 'root'
     mode: '0644'
-  notify:
-    - Restart Kibana exporter service.
+  notify: Restart Kibana exporter service.

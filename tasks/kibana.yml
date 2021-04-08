@@ -6,5 +6,4 @@
     owner: 'kibana'
     group: 'kibana'
     mode: '640'
-  notify:
-    - Restart Kibana service.
+  notify: Restart Kibana service.

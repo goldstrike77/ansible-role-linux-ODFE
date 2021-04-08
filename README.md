@@ -87,9 +87,6 @@ There are some variables in defaults/main.yml which can (Or needs to) be overrid
 * `opendistro_ngx_domain`: Defines domain name.
 * `opendistro_ngx_port_http`: Defines NGinx HTTP listen port.
 * `opendistro_ngx_port_https`: Defines NGinx HTTPs listen port.
-* `opendistro_ngx_block_agents`: A boolean to determine whether or not enables or disables block unsafe User Agents.
-* `opendistro_ngx_block_string`: A boolean to determine whether or not enables or disables block includes Exploits / File injections / Spam / SQL injections.
-* `opendistro_ngx_compress`: A boolean to determine whether or not enables compression.
 
 ##### ElasticSearch parameters
 * `opendistro_es_arg.action_destructive_requires_name`: Restricts deletions to specific names, instead of allowing the special _all or wildcard options.
@@ -183,9 +180,6 @@ opendistro_logstash_inputs_arg:
 opendistro_ngx_domain: 'siem.example.com'
 opendistro_ngx_port_http: '80'
 opendistro_ngx_port_https: '443'
-opendistro_ngx_block_agents: true
-opendistro_ngx_block_string: true
-opendistro_ngx_compress: true
 opendistro_es_arg:
   action_destructive_requires_name: true
   cluster_max_shards_per_node: '10000'

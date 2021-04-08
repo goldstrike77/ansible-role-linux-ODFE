@@ -7,8 +7,7 @@
     group: '{{ item.owner }}'
     mode: '{{ item.mode }}'
   loop: '{{ opendistro_conf }}'
-  notify:
-    - Restart ElasticSearch service.
+  notify: Restart ElasticSearch service.
 
 - name: Open Distro internal users password outputs.
   template:

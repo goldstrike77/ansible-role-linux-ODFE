@@ -40,8 +40,7 @@
     group: '{{ item.owner }}'
     mode: '{{ item.mode }}'
   loop: '{{ opendistro_logstash_conf }}'
-  notify:
-    - Restart LogStash service.
+  notify: Restart LogStash service.
 
 - name: LogStash input configuration file transfer.
   template:
@@ -52,8 +51,7 @@
     group: 'logstash'
     mode: '0640'
   loop: '{{ opendistro_logstash_inputs_arg }}'
-  notify:
-    - Restart LogStash service.
+  notify: Restart LogStash service.
 
 - name: Logstash input template file transfer.
   template:
@@ -66,8 +64,7 @@
   loop: '{{ opendistro_logstash_inputs_arg }}'
   loop_control:
     index_var: index
-  notify:
-    - Restart LogStash service.
+  notify: Restart LogStash service.
 
 - name: Logstash input pattern file transfer.
   copy:
@@ -77,5 +74,4 @@
     group: 'logstash'
     mode: '0640'
   loop: '{{ opendistro_logstash_inputs_arg }}'
-  notify:
-    - Restart LogStash service.
+  notify: Restart LogStash service.

@@ -58,9 +58,6 @@ opendistro_logstash_inputs_arg: # Define the global common inputs parameters.
 opendistro_ngx_domain: 'siem.example.com' # Defines domain name.
 opendistro_ngx_port_http: '80' # Defines NGinx HTTP listen port.
 opendistro_ngx_port_https: '443' # Defines NGinx HTTPs listen port.
-opendistro_ngx_block_agents: true # A boolean to determine whether or not enables or disables block unsafe User Agents.
-opendistro_ngx_block_string: true # A boolean to determine whether or not enables or disables block includes Exploits / File injections / Spam / SQL injections.
-opendistro_ngx_compress: true # A boolean to determine whether or not enables compression.
 
 # ElasticSearch parameters #
 opendistro_es_arg:
